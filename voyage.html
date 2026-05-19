@@ -150,7 +150,11 @@
   }
   .sommaire-list li:last-child { border-bottom: 0.5px solid rgba(201,169,122,0.25); }
   .sommaire-list a {
-    display: flex; align-items: baseline; justify-content: space-between;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
+    align-items: baseline;
+    gap: 0 0.75rem;
     padding: 0.9rem 0;
     text-decoration: none; color: var(--encre);
     transition: color 0.2s, padding-left 0.2s;
@@ -158,11 +162,25 @@
   .sommaire-list a:hover { color: var(--terre-dark); padding-left: 0.5rem; }
   .sommaire-jour {
     font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase;
-    color: var(--terre); margin-right: 1rem; white-space: nowrap;
+    color: var(--terre); white-space: nowrap;
+    grid-column: 1; grid-row: 1;
   }
-  .sommaire-titre { font-size: 0.92rem; flex: 1; }
-  .sommaire-lieux { font-size: 0.75rem; color: var(--encre-soft); white-space: nowrap; margin-left: 1rem; }
-  .sommaire-arrow { font-size: 0.7rem; color: var(--terre); margin-left: 0.75rem; }
+  .sommaire-titre {
+    font-size: 0.92rem;
+    grid-column: 2; grid-row: 1;
+  }
+  .sommaire-lieux {
+    font-size: 0.75rem; color: var(--encre-soft);
+    grid-column: 1 / 3; grid-row: 2;
+    padding-left: calc(3.5rem); /* aligne sous le titre */
+    line-height: 1.5;
+    white-space: normal;
+    word-break: break-word;
+  }
+  .sommaire-arrow {
+    font-size: 0.7rem; color: var(--terre);
+    grid-column: 3; grid-row: 1;
+  }
 
   /* ── SÉPARATEUR ── */
   .section-sep {

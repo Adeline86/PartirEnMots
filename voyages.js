@@ -120,7 +120,7 @@ const VOYAGES = [
 
     jours: [
       {
-        titre:         "Paris → Londres → Oxford → Bibury",
+        titre:         "Les premiers pas",
         lieux_du_jour: "Oxford · Bibury",
         entrees: [
           {
@@ -164,7 +164,7 @@ const VOYAGES = [
         ],
       },
       {
-        titre:         "Le train à vapeur et Cleeve Hill",
+        titre:         "Le train à vapeur",
         lieux_du_jour: "Toddington · Winchcombe · Broadway · Cleeve Hill",
         entrees: [
           {
@@ -224,7 +224,7 @@ const VOYAGES = [
         ],
       },
       {
-        titre:         "Les villages du nord et la Broadway Tower",
+        titre:         "Les villages du nord",
         lieux_du_jour: "Stow-on-the-Wold · Chipping Campden · Snowshill · Stanton · Stanway · Broadway Tower",
         entrees: [
           {
