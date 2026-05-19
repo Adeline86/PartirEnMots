@@ -709,9 +709,13 @@
     if (!q) { results.classList.remove('visible'); results.innerHTML = ''; return; }
 
     const hits = VOYAGES.filter(v => {
-      const hay = [v.titre, v.lieu, v.date, v.saison,
-        ...(v.jours || []).flatMap(j => [j.titre, j.lieux_du_jour,
-          ...(j.entrees || []).map(e => e.tag + ' ' + e.titre)])
+      const hay = [
+        v.id, v.titre, v.lieu, v.date, v.saison, v.intro,
+        ...(v.lieux || []).map(l => l.nom),
+        ...(v.jours || []).flatMap(j => [
+          j.titre, j.lieux_du_jour,
+          ...(j.entrees || []).flatMap(e => [e.tag, e.titre, e.texte])
+        ])
       ].join(' ').toLowerCase();
       return hay.includes(q);
     });
