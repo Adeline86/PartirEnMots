@@ -572,44 +572,14 @@
   </div>
 </section>
 
-<!-- ARTICLES RÉCENTS -->
+<!-- ARTICLES RÉCENTS — générés depuis voyages.js -->
 <section class="section" id="articles">
   <div class="section-header reveal">
     <h2 class="section-title">Derniers récits</h2>
     <a href="#" class="section-link">Tout voir</a>
   </div>
-  <div class="articles-grid">
-
-    <!-- Article principal -->
-    <a href="#" class="article-card featured reveal">
-      <div class="card-img-wrap">
-        <div class="card-placeholder ph-1"></div>
-      </div>
-      <p class="card-meta">Portugal &nbsp;·&nbsp; Mai 2025</p>
-      <h3 class="card-title">Lisbonne sous la pluie, et pourquoi c'était mieux comme ça</h3>
-      <p class="card-excerpt">Il y a des villes qu'on aime davantage quand elles ne cherchent pas à plaire. Lisbonne mouillée a cette franchise-là — les pavés brillent, les trams ralentissent, et soudain on a le temps de regarder.</p>
-    </a>
-
-    <!-- Article 2 -->
-    <a href="#" class="article-card reveal" style="transition-delay: 0.1s">
-      <div class="card-img-wrap">
-        <div class="card-placeholder ph-2"></div>
-      </div>
-      <p class="card-meta">Japon &nbsp;·&nbsp; Avril 2025</p>
-      <h3 class="card-title">Kyoto au moment des cerisiers</h3>
-      <p class="card-excerpt">Le cliché était vrai. Et ça n'enlève rien.</p>
-    </a>
-
-    <!-- Article 3 -->
-    <a href="#" class="article-card reveal" style="transition-delay: 0.2s">
-      <div class="card-img-wrap">
-        <div class="card-placeholder ph-3"></div>
-      </div>
-      <p class="card-meta">France &nbsp;·&nbsp; Mars 2025</p>
-      <h3 class="card-title">Un week-end à Laval, la surprise de Mayenne</h3>
-      <p class="card-excerpt">On n'y pense jamais. Et pourtant le Vieux-Château, la basilique au bord de la Mayenne...</p>
-    </a>
-
+  <div class="articles-grid" id="articles-grid">
+    <!-- rempli par JS -->
   </div>
 </section>
 
@@ -692,15 +662,40 @@
   <p class="footer-copy">© 2025 — Fait avec soin</p>
 </footer>
 
+<script src="voyages.js"></script>
 <script>
-  // Nav scroll
+  // ── Génération des cartes depuis voyages.js
+  const grid = document.getElementById('articles-grid');
+  const palettes = ['ph-1','ph-2','ph-3','ph-4','ph-5'];
+
+  // On affiche les 3 derniers voyages (ordre inverse = plus récent en premier)
+  const recents = [...VOYAGES].reverse().slice(0, 3);
+
+  recents.forEach((v, i) => {
+    const featured  = i === 0 ? 'featured' : '';
+    const delay     = i > 0   ? `style="transition-delay:${i * 0.1}s"` : '';
+    const palette   = palettes[i % palettes.length];
+    const excerpt   = v.intro;
+    const photoHTML = v.cover
+      ? `<img src="${v.cover}" alt="${v.titre}" style="width:100%;height:100%;object-fit:cover;">`
+      : `<div class="card-placeholder ${palette}"></div>`;
+
+    grid.insertAdjacentHTML('beforeend', `
+      <a href="voyage.html?id=${v.id}" class="article-card ${featured} reveal" ${delay}>
+        <div class="card-img-wrap">${photoHTML}</div>
+        <p class="card-meta">${v.lieu} &nbsp;·&nbsp; ${v.date}</p>
+        <h3 class="card-title">${v.titre}</h3>
+        <p class="card-excerpt">${excerpt}</p>
+      </a>`);
+  });
+
+  // ── Nav scroll
   const nav = document.getElementById('nav');
   window.addEventListener('scroll', () => {
     nav.classList.toggle('scrolled', window.scrollY > 60);
   });
 
-  // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
+  // ── Reveal on scroll
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -709,7 +704,7 @@
       }
     });
   }, { threshold: 0.12 });
-  reveals.forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
