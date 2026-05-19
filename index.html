@@ -71,6 +71,58 @@
   }
   .nav-links a:hover { color: var(--terre-dark); }
 
+  /* ── RECHERCHE ── */
+  .nav-right { display: flex; align-items: center; gap: 2rem; }
+  .nav-search { position: relative; display: flex; align-items: center; }
+  .search-toggle {
+    background: none; border: none; cursor: pointer; padding: 4px;
+    color: var(--encre-soft); display: flex; align-items: center;
+    transition: color 0.2s;
+  }
+  .search-toggle:hover { color: var(--terre-dark); }
+  .search-toggle svg { width: 16px; height: 16px; }
+  .search-box {
+    position: absolute; right: 28px; top: 50%; transform: translateY(-50%);
+    display: flex; align-items: center;
+    background: var(--creme); border: 0.5px solid var(--terre);
+    border-radius: 1px; overflow: hidden;
+    width: 0; opacity: 0;
+    transition: width 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.25s;
+    pointer-events: none;
+  }
+  .search-box.open { width: 220px; opacity: 1; pointer-events: all; }
+  .search-input {
+    flex: 1; padding: 0.5rem 0.9rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 300;
+    background: transparent; border: none; outline: none; color: var(--encre);
+  }
+  .search-input::placeholder { color: rgba(90,90,87,0.45); }
+  .search-clear {
+    background: none; border: none; cursor: pointer; padding: 0 0.6rem;
+    color: var(--encre-soft); font-size: 1rem; line-height: 1; display: none;
+  }
+  .search-clear.visible { display: block; }
+  .search-results {
+    position: fixed; top: 64px; left: 0; right: 0;
+    background: rgba(249,245,239,0.97); backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(201,169,122,0.3);
+    padding: 1rem 3rem; z-index: 99;
+    display: none; flex-wrap: wrap; gap: 0.75rem; align-items: center;
+  }
+  .search-results.visible { display: flex; }
+  .search-result-label { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--terre); }
+  .result-tag {
+    display: inline-flex; align-items: center; gap: 0.6rem;
+    font-size: 0.82rem; color: var(--encre);
+    background: var(--lin); border: 0.5px solid rgba(201,169,122,0.4);
+    padding: 0.35rem 0.9rem; border-radius: 20px;
+    text-decoration: none; transition: background 0.2s, color 0.2s;
+  }
+  .result-tag:hover { background: var(--encre); color: var(--creme); }
+  .result-lieu { font-size: 0.68rem; color: var(--terre-dark); }
+  .result-tag:hover .result-lieu { color: rgba(249,245,239,0.6); }
+  .no-result { font-size: 0.85rem; color: var(--encre-soft); font-style: italic; }
+
   /* ── HERO ── */
   .hero {
     min-height: 100vh;
@@ -489,12 +541,25 @@
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">partir en mots</a>
-  <ul class="nav-links">
-    <li><a href="#">Destinations</a></li>
-    <li><a href="#">Le carnet</a></li>
-    <li><a href="apropos.html">À propos</a></li>
-  </ul>
+  <div class="nav-right">
+    <ul class="nav-links">
+      <li><a href="#articles">Destinations</a></li>
+      <li><a href="apropos.html">À propos</a></li>
+    </ul>
+    <div class="nav-search">
+      <div class="search-box" id="search-box">
+        <input type="text" class="search-input" id="search-input" placeholder="Chercher un voyage…">
+        <button class="search-clear" id="search-clear" aria-label="Effacer">×</button>
+      </div>
+      <button class="search-toggle" id="search-toggle" aria-label="Rechercher">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5L14 14"/>
+        </svg>
+      </button>
+    </div>
+  </div>
 </nav>
+<div class="search-results" id="search-results"></div>
 
 <!-- HERO -->
 <section class="hero">
@@ -623,6 +688,52 @@
         <h3 class="card-title">${v.titre}</h3>
         <p class="card-excerpt">${excerpt}</p>
       </a>`);
+  });
+
+  // ── Recherche
+  const toggle    = document.getElementById('search-toggle');
+  const box       = document.getElementById('search-box');
+  const input     = document.getElementById('search-input');
+  const clear     = document.getElementById('search-clear');
+  const results   = document.getElementById('search-results');
+
+  toggle.addEventListener('click', () => {
+    box.classList.toggle('open');
+    if (box.classList.contains('open')) input.focus();
+    else { input.value = ''; clear.classList.remove('visible'); results.classList.remove('visible'); results.innerHTML = ''; }
+  });
+
+  input.addEventListener('input', () => {
+    const q = input.value.trim().toLowerCase();
+    clear.classList.toggle('visible', q.length > 0);
+    if (!q) { results.classList.remove('visible'); results.innerHTML = ''; return; }
+
+    const hits = VOYAGES.filter(v => {
+      const hay = [v.titre, v.lieu, v.date, v.saison,
+        ...(v.jours || []).flatMap(j => [j.titre, j.lieux_du_jour,
+          ...(j.entrees || []).map(e => e.tag + ' ' + e.titre)])
+      ].join(' ').toLowerCase();
+      return hay.includes(q);
+    });
+
+    results.innerHTML = hits.length
+      ? `<span class="search-result-label">${hits.length} résultat${hits.length > 1 ? 's' : ''}</span>`
+        + hits.map(v => `<a href="voyage.html?id=${v.id}" class="result-tag">${v.titre} <span class="result-lieu">${v.lieu}</span></a>`).join('')
+      : `<span class="no-result">Aucun résultat pour « ${input.value} »</span>`;
+    results.classList.add('visible');
+  });
+
+  clear.addEventListener('click', () => {
+    input.value = ''; clear.classList.remove('visible');
+    results.classList.remove('visible'); results.innerHTML = '';
+    input.focus();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.nav-search') && !e.target.closest('.search-results')) {
+      box.classList.remove('open');
+      results.classList.remove('visible');
+    }
   });
 
   // ── Nav scroll
