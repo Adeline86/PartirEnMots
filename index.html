@@ -429,57 +429,6 @@
   .dest-c { background: linear-gradient(145deg, #C4B8A8 0%, #7A6E60 100%); }
   .dest-d { background: linear-gradient(145deg, #D4C4A0 0%, #A08840 100%); }
 
-  /* ── NEWSLETTER ── */
-  .newsletter {
-    background: var(--lin);
-    padding: 5rem 3rem;
-    text-align: center;
-  }
-  .newsletter-inner { max-width: 520px; margin: 0 auto; }
-  .newsletter-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 2.2rem;
-    font-weight: 300;
-    margin-bottom: 0.75rem;
-  }
-  .newsletter-sub {
-    font-size: 0.87rem;
-    color: var(--encre-soft);
-    margin-bottom: 2rem;
-  }
-  .newsletter-form {
-    display: flex;
-    gap: 0;
-    border: 0.5px solid var(--terre);
-    border-radius: 1px;
-    overflow: hidden;
-  }
-  .newsletter-input {
-    flex: 1;
-    padding: 0.9rem 1.25rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.87rem;
-    font-weight: 300;
-    background: var(--blanc);
-    border: none;
-    color: var(--encre);
-    outline: none;
-  }
-  .newsletter-input::placeholder { color: rgba(90,90,87,0.5); }
-  .newsletter-btn {
-    padding: 0.9rem 1.5rem;
-    background: var(--encre);
-    color: var(--creme);
-    border: none;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  .newsletter-btn:hover { background: var(--terre-dark); }
-
   /* ── FOOTER ── */
   footer {
     padding: 2.5rem 3rem;
@@ -544,7 +493,6 @@
     <li><a href="#">Destinations</a></li>
     <li><a href="#">Le carnet</a></li>
     <li><a href="#">À propos</a></li>
-    <li><a href="#">Contact</a></li>
   </ul>
 </nav>
 
@@ -640,18 +588,6 @@
           <p class="dest-count">4 récits</p>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- NEWSLETTER -->
-<section class="newsletter">
-  <div class="newsletter-inner reveal">
-    <h2 class="newsletter-title">Un récit de temps en temps</h2>
-    <p class="newsletter-sub">Pas de newsletter hebdomadaire, promis. Juste un email quand j'ai quelque chose à raconter.</p>
-    <div class="newsletter-form">
-      <input type="email" class="newsletter-input" placeholder="ton@email.fr">
-      <button class="newsletter-btn">S'abonner</button>
     </div>
   </div>
 </section>
