@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Partir en mots — Voyages, ressentis, et quelques détours</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --creme:     #F9F5EF;
+    --lin:       #F0E8D8;
+    --terre:     #C9A97A;
+    --terre-dark:#8B6E45;
+    --mousse:    #4A7C6F;
+    --encre:     #2C2C2A;
+    --encre-soft:#5A5A57;
+    --blanc:     #FDFAF5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--creme);
+    color: var(--encre);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 3rem;
+    background: transparent;
+    transition: background 0.4s, backdrop-filter 0.4s;
+  }
+  nav.scrolled {
+    background: rgba(249,245,239,0.88);
+    backdrop-filter: blur(12px);
+    border-bottom: 0.5px solid rgba(201,169,122,0.3);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: 0.02em;
+    color: var(--encre);
+    text-decoration: none;
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+  }
+  .nav-links a {
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--encre-soft);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--terre-dark); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 4rem 4rem 3rem;
+    position: relative;
+    z-index: 2;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terre);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.2s forwards;
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3.5rem, 6vw, 5.5rem);
+    font-weight: 300;
+    line-height: 1.05;
+    letter-spacing: -0.01em;
+    color: var(--encre);
+    margin-bottom: 1.5rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.4s forwards;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--terre-dark);
+  }
+
+  .hero-sub {
+    font-size: 0.9rem;
+    color: var(--encre-soft);
+    letter-spacing: 0.04em;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.6s forwards;
+  }
+
+  .hero-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--encre);
+    text-decoration: none;
+    border-bottom: 1px solid var(--terre);
+    padding-bottom: 4px;
+    transition: gap 0.3s, color 0.2s;
+    width: fit-content;
+    opacity: 0;
+    animation: fadeUp 0.8s 0.8s forwards;
+  }
+  .hero-cta:hover { gap: 1.25rem; color: var(--terre-dark); }
+  .hero-cta svg { width: 14px; height: 14px; }
+
+  .hero-image {
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-image::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, var(--creme) 0%, transparent 25%);
+    z-index: 1;
+  }
+  .hero-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.3s forwards;
+  }
+
+  /* Image placeholder avec texture */
+  .hero-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background:
+      repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 2px,
+        rgba(201,169,122,0.06) 2px,
+        rgba(201,169,122,0.06) 4px
+      ),
+      linear-gradient(135deg, #E8DCC8 0%, #D4C4A8 40%, #BFA882 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeIn 1.2s 0.3s forwards;
+  }
+  .placeholder-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 0.85rem;
+    font-style: italic;
+    color: rgba(44,44,42,0.4);
+    text-align: center;
+    padding: 1rem;
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 2.5rem;
+    left: 3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--terre);
+    opacity: 0;
+    animation: fadeIn 1s 1.2s forwards;
+  }
+  .scroll-line {
+    width: 40px;
+    height: 0.5px;
+    background: var(--terre);
+    animation: lineGrow 1s 1.4s both;
+    transform-origin: left;
+    transform: scaleX(0);
+  }
+  @keyframes lineGrow { to { transform: scaleX(1); } }
+
+  /* ── SECTION : RÉCENTS ── */
+  .section {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    border-bottom: 0.5px solid rgba(201,169,122,0.4);
+    padding-bottom: 1rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+  }
+  .section-link {
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terre-dark);
+    text-decoration: none;
+    border-bottom: 0.5px solid currentColor;
+  }
+
+  .articles-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  .article-card {
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .article-card:hover .card-img { transform: scale(1.03); }
+  .article-card:hover .card-title { color: var(--terre-dark); }
+
+  .card-img-wrap {
+    overflow: hidden;
+    border-radius: 2px;
+    margin-bottom: 1rem;
+    aspect-ratio: 4/3;
+    background: var(--lin);
+  }
+  .article-card.featured .card-img-wrap { aspect-ratio: 3/2; }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: block;
+  }
+
+  /* Placeholders colorés pour les cartes */
+  .card-placeholder {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .ph-1 { background: linear-gradient(135deg, #D4C4A8 0%, #BFA882 60%, #A08660 100%); }
+  .ph-2 { background: linear-gradient(135deg, #C5D5C0 0%, #8FAB88 60%, #4A7C6F 100%); }
+  .ph-3 { background: linear-gradient(135deg, #D4BFA8 0%, #C9A97A 60%, #A08040 100%); }
+  .article-card:hover .card-placeholder { transform: scale(1.03); }
+
+  .card-meta {
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terre);
+    margin-bottom: 0.4rem;
+  }
+  .card-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+    transition: color 0.2s;
+  }
+  .article-card.featured .card-title { font-size: 1.7rem; }
+  .card-excerpt {
+    font-size: 0.83rem;
+    color: var(--encre-soft);
+    line-height: 1.65;
+  }
+
+  /* ── SECTION : À PROPOS ── */
+  .about-strip {
+    background: var(--encre);
+    color: var(--creme);
+    padding: 5rem 3rem;
+  }
+  .about-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .about-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--terre);
+    margin-bottom: 1.5rem;
+  }
+  .about-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 300;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  .about-title em { font-style: italic; color: var(--terre); }
+  .about-text {
+    font-size: 0.9rem;
+    color: rgba(249,245,239,0.7);
+    line-height: 1.8;
+    margin-bottom: 2rem;
+  }
+  .about-link {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terre);
+    text-decoration: none;
+    border-bottom: 0.5px solid var(--terre);
+    padding-bottom: 3px;
+  }
+  .about-visual {
+    aspect-ratio: 4/5;
+    border-radius: 2px;
+    background:
+      repeating-linear-gradient(
+        -45deg,
+        transparent,
+        transparent 3px,
+        rgba(249,245,239,0.03) 3px,
+        rgba(249,245,239,0.03) 6px
+      ),
+      linear-gradient(145deg, #3a3a38 0%, #4A7C6F 100%);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.5rem;
+  }
+  .about-visual-caption {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 0.9rem;
+    color: rgba(249,245,239,0.5);
+  }
+
+  /* ── SECTION : DESTINATIONS ── */
+  .destinations {
+    padding: 6rem 3rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  .dest-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-top: 3rem;
+  }
+  .dest-item {
+    position: relative;
+    aspect-ratio: 3/4;
+    overflow: hidden;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  .dest-bg {
+    width: 100%; height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .dest-item:hover .dest-bg { transform: scale(1.06); }
+  .dest-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(44,44,42,0.75) 0%, transparent 50%);
+    display: flex;
+    align-items: flex-end;
+    padding: 1.25rem;
+  }
+  .dest-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem;
+    font-weight: 300;
+    color: var(--creme);
+    line-height: 1.1;
+  }
+  .dest-count {
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terre);
+    margin-top: 3px;
+  }
+
+  /* Couleurs destinations */
+  .dest-a { background: linear-gradient(145deg, #D4BFA8 0%, #8B6E45 100%); }
+  .dest-b { background: linear-gradient(145deg, #A8C4BE 0%, #4A7C6F 100%); }
+  .dest-c { background: linear-gradient(145deg, #C4B8A8 0%, #7A6E60 100%); }
+  .dest-d { background: linear-gradient(145deg, #D4C4A0 0%, #A08840 100%); }
+
+  /* ── NEWSLETTER ── */
+  .newsletter {
+    background: var(--lin);
+    padding: 5rem 3rem;
+    text-align: center;
+  }
+  .newsletter-inner { max-width: 520px; margin: 0 auto; }
+  .newsletter-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.2rem;
+    font-weight: 300;
+    margin-bottom: 0.75rem;
+  }
+  .newsletter-sub {
+    font-size: 0.87rem;
+    color: var(--encre-soft);
+    margin-bottom: 2rem;
+  }
+  .newsletter-form {
+    display: flex;
+    gap: 0;
+    border: 0.5px solid var(--terre);
+    border-radius: 1px;
+    overflow: hidden;
+  }
+  .newsletter-input {
+    flex: 1;
+    padding: 0.9rem 1.25rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.87rem;
+    font-weight: 300;
+    background: var(--blanc);
+    border: none;
+    color: var(--encre);
+    outline: none;
+  }
+  .newsletter-input::placeholder { color: rgba(90,90,87,0.5); }
+  .newsletter-btn {
+    padding: 0.9rem 1.5rem;
+    background: var(--encre);
+    color: var(--creme);
+    border: none;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .newsletter-btn:hover { background: var(--terre-dark); }
+
+  /* ── FOOTER ── */
+  footer {
+    padding: 2.5rem 3rem;
+    border-top: 0.5px solid rgba(201,169,122,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-style: italic;
+    color: var(--encre-soft);
+    text-decoration: none;
+  }
+  .footer-copy {
+    font-size: 0.75rem;
+    color: rgba(90,90,87,0.5);
+    letter-spacing: 0.05em;
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-image { display: none; }
+    .hero-text { padding: 7rem 2rem 4rem; }
+    .articles-grid { grid-template-columns: 1fr; }
+    .about-inner { grid-template-columns: 1fr; gap: 3rem; }
+    .dest-grid { grid-template-columns: repeat(2, 1fr); }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .section { padding: 4rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">partir en mots</a>
+  <ul class="nav-links">
+    <li><a href="#">Destinations</a></li>
+    <li><a href="#">Le carnet</a></li>
+    <li><a href="#">À propos</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-text">
+    <p class="hero-eyebrow">Journal de voyage</p>
+    <h1 class="hero-title">Partir<br>en <em>mots</em></h1>
+    <p class="hero-sub">Voyages, ressentis, et quelques détours</p>
+    <a href="#articles" class="hero-cta">
+      Lire les récits
+      <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M1 7h12M8 2l6 5-6 5"/>
+      </svg>
+    </a>
+    <div class="hero-scroll">
+      <span class="scroll-line"></span>
+      Défiler
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-image-placeholder">
+      <p class="placeholder-text">→ Ta photo de couverture ici<br><span style="font-size:0.75rem; opacity:0.6;">1200 × 900 px recommandé</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLES RÉCENTS -->
+<section class="section" id="articles">
+  <div class="section-header reveal">
+    <h2 class="section-title">Derniers récits</h2>
+    <a href="#" class="section-link">Tout voir</a>
+  </div>
+  <div class="articles-grid">
+
+    <!-- Article principal -->
+    <a href="#" class="article-card featured reveal">
+      <div class="card-img-wrap">
+        <div class="card-placeholder ph-1"></div>
+      </div>
+      <p class="card-meta">Portugal &nbsp;·&nbsp; Mai 2025</p>
+      <h3 class="card-title">Lisbonne sous la pluie, et pourquoi c'était mieux comme ça</h3>
+      <p class="card-excerpt">Il y a des villes qu'on aime davantage quand elles ne cherchent pas à plaire. Lisbonne mouillée a cette franchise-là — les pavés brillent, les trams ralentissent, et soudain on a le temps de regarder.</p>
+    </a>
+
+    <!-- Article 2 -->
+    <a href="#" class="article-card reveal" style="transition-delay: 0.1s">
+      <div class="card-img-wrap">
+        <div class="card-placeholder ph-2"></div>
+      </div>
+      <p class="card-meta">Japon &nbsp;·&nbsp; Avril 2025</p>
+      <h3 class="card-title">Kyoto au moment des cerisiers</h3>
+      <p class="card-excerpt">Le cliché était vrai. Et ça n'enlève rien.</p>
+    </a>
+
+    <!-- Article 3 -->
+    <a href="#" class="article-card reveal" style="transition-delay: 0.2s">
+      <div class="card-img-wrap">
+        <div class="card-placeholder ph-3"></div>
+      </div>
+      <p class="card-meta">France &nbsp;·&nbsp; Mars 2025</p>
+      <h3 class="card-title">Un week-end à Laval, la surprise de Mayenne</h3>
+      <p class="card-excerpt">On n'y pense jamais. Et pourtant le Vieux-Château, la basilique au bord de la Mayenne...</p>
+    </a>
+
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="about-strip">
+  <div class="about-inner">
+    <div>
+      <p class="about-label reveal">À propos</p>
+      <h2 class="about-title reveal">Les voyages<br>commencent <em>après</em><br>le retour</h2>
+      <p class="about-text reveal">Je m'appelle Adeline. Je voyage, je mange des choses que je ne sais pas prononcer, je rate des trains et je recommence. Ce blog, c'est l'endroit où j'essaie de mettre des mots sur tout ça — pas pour donner des conseils, plutôt pour ne pas oublier.</p>
+      <a href="#" class="about-link reveal">En savoir plus</a>
+    </div>
+    <div class="about-visual reveal">
+      <p class="about-visual-caption">→ Ta photo ici</p>
+    </div>
+  </div>
+</section>
+
+<!-- DESTINATIONS -->
+<section class="destinations">
+  <div class="section-header reveal">
+    <h2 class="section-title">Par destination</h2>
+    <a href="#" class="section-link">Toutes les destinations</a>
+  </div>
+  <div class="dest-grid">
+    <div class="dest-item reveal">
+      <div class="dest-bg dest-a"></div>
+      <div class="dest-overlay">
+        <div>
+          <p class="dest-name">Europe</p>
+          <p class="dest-count">12 récits</p>
+        </div>
+      </div>
+    </div>
+    <div class="dest-item reveal" style="transition-delay:0.1s">
+      <div class="dest-bg dest-b"></div>
+      <div class="dest-overlay">
+        <div>
+          <p class="dest-name">Asie</p>
+          <p class="dest-count">7 récits</p>
+        </div>
+      </div>
+    </div>
+    <div class="dest-item reveal" style="transition-delay:0.2s">
+      <div class="dest-bg dest-c"></div>
+      <div class="dest-overlay">
+        <div>
+          <p class="dest-name">France</p>
+          <p class="dest-count">9 récits</p>
+        </div>
+      </div>
+    </div>
+    <div class="dest-item reveal" style="transition-delay:0.3s">
+      <div class="dest-bg dest-d"></div>
+      <div class="dest-overlay">
+        <div>
+          <p class="dest-name">Amériques</p>
+          <p class="dest-count">4 récits</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <div class="newsletter-inner reveal">
+    <h2 class="newsletter-title">Un récit de temps en temps</h2>
+    <p class="newsletter-sub">Pas de newsletter hebdomadaire, promis. Juste un email quand j'ai quelque chose à raconter.</p>
+    <div class="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="ton@email.fr">
+      <button class="newsletter-btn">S'abonner</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <a href="#" class="footer-logo">partir en mots</a>
+  <p class="footer-copy">© 2025 — Fait avec soin</p>
+</footer>
+
+<script>
+  // Nav scroll
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  });
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
