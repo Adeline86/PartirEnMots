@@ -117,6 +117,7 @@ const VOYAGES = [
         titre:         "Les premiers pas",
         lieux_du_jour: "Oxford · Bibury",
         quote:         "",
+        legende:       "Bibury nous a accueillis comme une promesse tenue — Arlington Row, le ruisseau Coln, la lumière de mai sur les pierres dorées. On a posé les valises et on n'a plus eu envie de bouger.",
         photos: [
           { photo: "photos/cotswolds-2026/j1-01.jpg",  tag: "Trajet",  titre: "L'Eurostar, puis les Cotswolds apparaissent", texte: "Paris le matin, Londres en milieu de journée, et les Cotswolds en fin d'après-midi. Le trajet fait partie du voyage — les paysages changent imperceptiblement depuis la fenêtre du train, jusqu'à ce que les pierres dorées remplacent le béton." },
           { photo: "photos/cotswolds-2026/j1-02.jpg",  tag: "Bibury",  titre: "Premiers pas dans le village qui ressemble à une aquarelle", texte: "Bibury pour poser les valises — et déjà, la surprise. Arlington Row, ses maisons en pierre du 14e siècle le long du ruisseau Coln, la lumière de fin de journée. On ne s'attendait pas à être aussi vite conquis." },
@@ -135,6 +136,7 @@ const VOYAGES = [
         titre:         "Burford et Cirencester",
         lieux_du_jour: "Burford · Cirencester",
         quote:         "",
+        legende:       "Deux villes, deux ambiances — Burford et sa grand-rue en pente vers le Windrush, Cirencester et son passé romain discret sous les façades en pierre. Une journée pour comprendre que les Cotswolds ne se résument pas aux villages de carte postale.",
         photos: [
           { photo: "photos/cotswolds-2026/j2-01.jpg", tag: "Burford",      titre: "La grand-rue qui descend vers la rivière", texte: "Burford s'étire sur une seule rue principale qui dévale vers le Windrush. Les façades se succèdent, chacune légèrement différente, chacune en pierre de la même couleur miel. C'est à la fois répétitif et jamais monotone." },
           { photo: "photos/cotswolds-2026/j2-02.jpg", tag: "Cirencester",  titre: "L'ancienne capitale romaine, tranquille et fière", texte: "Cirencester était autrefois la deuxième ville de Bretagne romaine. Aujourd'hui c'est une ville de marché paisible avec une église-cathédrale démesurément belle pour sa taille. On a pris le temps de s'y perdre." },
@@ -144,6 +146,7 @@ const VOYAGES = [
         titre:         "Le train à vapeur",
         lieux_du_jour: "Toddington · Winchcombe · Broadway · Cleeve Hill",
         quote:         "",
+        legende:       "Une journée entre nostalgie et grand air — le GWSR pour traverser les collines à la vitesse du siècle dernier, Winchcombe pour l'authenticité, et Cleeve Hill pour une leçon d'humilité face à une plaine sans horizon.",
         photos: [
           { photo: "photos/cotswolds-2026/j3-01.jpg", tag: "GWSR",        titre: "Le train à vapeur qui ne va nulle part d'urgent", texte: "Le Gloucestershire Warwickshire Steam Railway relie Toddington à Broadway en longeant les collines. Ce n'est pas fait pour aller vite — c'est fait pour regarder défiler les prairies par la fenêtre, sentir l'odeur du charbon, et comprendre pourquoi certaines choses méritent d'être conservées." },
           { photo: "photos/cotswolds-2026/j3-02.jpg", tag: "Winchcombe",  titre: "Un village discret, loin des cars de touristes", texte: "Winchcombe n'est pas sur tous les guides. C'est peut-être pour ça qu'il garde quelque chose d'authentique — des habitants qui vivent là, des commerces qui ne sont pas tous des tea rooms, une rue principale sans filet." },
@@ -154,6 +157,7 @@ const VOYAGES = [
         titre:         "Bourton, Lower et Upper Slaughter",
         lieux_du_jour: "Bourton-on-the-Water · Lower Slaughter · Upper Slaughter",
         quote:         "« Il y a des villages qu'on ne veut pas quitter, pas parce qu'il s'y passe quelque chose, mais précisément parce qu'il ne s'y passe rien. »",
+        legende:       "La journée la plus douce du séjour — on a marché le long de l'Eye d'un village à l'autre, sans plan précis. Lower Slaughter sous l'éclaircie, Upper Slaughter dans le silence. L'eau, la pierre, les fleurs.",
         photos: [
           { photo: "photos/cotswolds-2026/j4-01.jpg", tag: "Bourton-on-the-Water", titre: "La Venise des Cotswolds, avant les touristes", texte: "Bourton-on-the-Water mérite son surnom — à condition d'y arriver tôt. La rivière Windrush traverse le village sous une succession de petits ponts en pierre. On s'est assis sur l'un d'eux. Longtemps." },
           { photo: "photos/cotswolds-2026/j4-02.jpg", tag: "Lower Slaughter",       titre: "Tout était réuni — et une éclaircie est arrivée", texte: "Les maisons en pierre dorée, les jardinières débordantes de fleurs, la rivière Eye qui coule sans se presser, le vieux moulin au bout du chemin. Et puis la lumière a changé — une éclaircie franche, d'un coup, comme un cadeau." },
@@ -164,6 +168,7 @@ const VOYAGES = [
         titre:         "Les villages du nord",
         lieux_du_jour: "Stow-on-the-Wold · Chipping Campden · Snowshill · Stanton · Stanway · Broadway Tower",
         quote:         "",
+        legende:       "La journée la plus dense — six étapes, des kilomètres à pied entre les villages, et la Broadway Tower en point final au coucher du soleil. Le nord des Cotswolds dans toute sa générosité.",
         photos: [
           { photo: "photos/cotswolds-2026/j5-01.jpg", tag: "Stow-on-the-Wold",  titre: "Le carrefour des Cotswolds", texte: "Stow-on-the-Wold est perché sur une colline au croisement de plusieurs routes romaines. Sa grande place, ses ruelles étroites entre les maisons en pierre — on comprend pourquoi les marchés s'y tenaient depuis le Moyen Âge." },
           { photo: "photos/cotswolds-2026/j5-02.jpg", tag: "Chipping Campden",  titre: "La rue la plus belle des Cotswolds, peut-être", texte: "La High Street de Chipping Campden est souvent citée comme la plus belle des Cotswolds. On comprend pourquoi — les façades s'enchaînent sans discontinuer, chacune différente, toutes dans la même pierre miel du pays." },
@@ -175,6 +180,7 @@ const VOYAGES = [
         titre:         "Le sud des Cotswolds",
         lieux_du_jour: "Castle Combe · Lacock · Malmesbury · Westonbirt · Tetbury",
         quote:         "",
+        legende:       "Le sud a une autre texture — plus humide, plus boisé, moins couru. Castle Combe irréelle, Lacock hors du temps, Westonbirt et ses arbres en fleur. Une journée pour les amoureux de verdure et de silence.",
         photos: [
           { photo: "photos/cotswolds-2026/j6-01.jpg", tag: "Castle Combe",         titre: "Le village le plus photographié d'Angleterre", texte: "Castle Combe mérite sa réputation — et la dépasse. Pas une antenne, pas un câble visible, pas une façade moderne. Le village est figé dans le temps, et ce n'est pas une figure de style. On a du mal à y croire, et pourtant." },
           { photo: "photos/cotswolds-2026/j6-02.jpg", tag: "Lacock",               titre: "Le village où le temps s'est arrêté pour de vrai", texte: "Lacock appartient au National Trust — ce qui explique qu'il soit aussi bien préservé. L'abbaye, les ruelles pavées, les maisons à colombages. On reconnaît des décors de films sans les avoir vus. Le lieu est authentique et irréel en même temps." },
@@ -185,6 +191,7 @@ const VOYAGES = [
         titre:         "Gloucester",
         lieux_du_jour: "Gloucester — Docks · Cathédrale",
         quote:         "",
+        legende:       "Gloucester mérite qu'on lui consacre une journée entière. La cathédrale et ses cloîtres, les docks victoriens reconvertis — une ville qui assume son histoire sans en faire un décor.",
         photos: [
           { photo: "photos/cotswolds-2026/j7-01.jpg", tag: "Cathédrale",       titre: "La cathédrale, les cloîtres, et un silence inattendu", texte: "Gloucester se visite souvent en coup de vent. On a pris le temps. La cathédrale cache des cloîtres d'une sérénité rare — de la pierre, de la lumière tamisée, et personne pour vous presser. On comprend que des scènes de Harry Potter y aient été tournées." },
           { photo: "photos/cotswolds-2026/j7-02.jpg", tag: "Gloucester Docks", titre: "Les anciens docks reconvertis avec goût", texte: "Le long des docks victoriens, les entrepôts en brique rouge ont été transformés en musées, cafés et librairies. Une ville qui connaît son histoire sans en faire un musée à ciel ouvert — c'est plus rare qu'on ne le croit." },
@@ -194,6 +201,7 @@ const VOYAGES = [
         titre:         "Oxford et retour",
         lieux_du_jour: "Oxford · Londres",
         quote:         "« Oxford donne envie d'être plus curieux qu'on ne l'est. »",
+        legende:       "Dernier jour, première impression d'Oxford — les collèges, les vélos, la Bodleian. On repart avec l'envie d'y revenir plus longtemps. L'Eurostar du soir ramène à Paris, les Cotswolds déjà dans la catégorie des voyages qu'on refait.",
         photos: [
           { photo: "photos/cotswolds-2026/j8-01.jpg", tag: "Oxford",            titre: "Des vélos, des spires, et l'impression d'avoir raté une vocation", texte: "Oxford intimide un peu, puis séduit beaucoup. Les collèges s'enchaînent, chacun avec sa cour secrète et ses pelouses interdites. On repart avec l'envie d'avoir étudié là — ou au moins d'y revenir." },
           { photo: "photos/cotswolds-2026/j8-02.jpg", tag: "Bodleian Library",  titre: "Des livres et de la pierre, dans le bon ordre", texte: "La Bodleian Library est l'une des plus anciennes bibliothèques du monde. On ne peut pas y emprunter de livres, on ne peut pas s'y asseoir librement. Et pourtant, rien que d'en traverser les cours, on a envie de lire." },
@@ -223,6 +231,7 @@ const VOYAGES = [
         titre:         "Jour 1",
         lieux_du_jour: "Ville A · Quartier X",
         quote:         "",   // citation affichée avant la galerie, "" si aucune
+        legende:       "",   // texte italique sous le titre, décrit la journée entière
         photos: [
           {
             photo: "photos/mon-voyage/j1-01.jpg",
