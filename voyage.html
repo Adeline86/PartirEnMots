@@ -71,38 +71,24 @@
 
   /* ── GALERIE ── */
   .gallery-grid {
-    display: flex;
-    flex-direction: row;
-    gap: 0.6rem;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    -webkit-overflow-scrolling: touch;
-    padding-bottom: 0.75rem;
-    cursor: grab;
+    columns: 3;
+    column-gap: 0.6rem;
   }
-  .gallery-grid:active { cursor: grabbing; }
-  /* Scrollbar discrète */
-  .gallery-grid::-webkit-scrollbar { height: 3px; }
-  .gallery-grid::-webkit-scrollbar-track { background: transparent; }
-  .gallery-grid::-webkit-scrollbar-thumb { background: rgba(201,169,122,0.4); border-radius: 2px; }
-
   .gallery-item {
-    flex: 0 0 auto;
+    break-inside: avoid;
     position: relative;
     overflow: hidden;
     border-radius: 2px;
     cursor: pointer;
     background: var(--lin);
-    scroll-snap-align: start;
-    height: 280px; /* hauteur fixe, largeur auto selon ratio */
+    margin-bottom: 0.6rem;
+    display: block;
   }
   .gallery-item img {
-    height: 100%;
-    width: auto;
+    width: 100%;
+    height: auto;
     display: block;
-    object-fit: cover;
     transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
-    pointer-events: none;
   }
   .gallery-item:hover img { transform: scale(1.04); }
   .gallery-item-overlay {
@@ -117,7 +103,7 @@
 
   /* Placeholder galerie */
   .gallery-placeholder {
-    height: 100%; width: 240px;
+    width: 100%; aspect-ratio: 4/3;
     display: flex; align-items: center; justify-content: center;
   }
   .ph-0 { background: linear-gradient(145deg,#D4BFA8 0%,#8B6E45 100%); }
@@ -126,7 +112,6 @@
   .ph-3 { background: linear-gradient(155deg,#C4A8B4 0%,#7C4A6E 100%); }
   .ph-4 { background: linear-gradient(135deg,#D4CCA8 0%,#8B7E45 100%); }
   .ph-5 { background: linear-gradient(145deg,#A8C4B8 0%,#4A7C6E 100%); }
-  .ph-label { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 0.75rem; color: rgba(255,255,255,0.35); text-align: center; }
 
   /* Légende de journée */
   .day-legend {
@@ -247,7 +232,7 @@
     .intro-section { grid-template-columns: 1fr; gap: 2.5rem; }
     #map { height: 260px; }
     .story-body { padding: 0 1.25rem; }
-    .gallery-item { height: 200px; }
+    .gallery-grid { columns: 2; }
     .lb-prev { left: 0.5rem; } .lb-next { right: 0.5rem; }
     footer { flex-direction: column; gap: 0.75rem; text-align: center; }
   }
@@ -489,21 +474,6 @@ if (!voyage) {
     });
   }, 50);
 }
-
-// ── Drag-to-scroll sur les carrousels
-setTimeout(() => {
-  document.querySelectorAll(".gallery-grid").forEach(gallery => {
-    let isDown = false, startX, scrollLeft;
-    gallery.addEventListener("mousedown",  e => { isDown = true; startX = e.pageX - gallery.offsetLeft; scrollLeft = gallery.scrollLeft; });
-    gallery.addEventListener("mouseleave", () => isDown = false);
-    gallery.addEventListener("mouseup",    () => isDown = false);
-    gallery.addEventListener("mousemove",  e => {
-      if (!isDown) return;
-      e.preventDefault();
-      gallery.scrollLeft = scrollLeft - (e.pageX - gallery.offsetLeft - startX);
-    });
-  });
-}, 100);
 
 // ── Retour haut de page
 const btnTop = document.getElementById("back-to-top");
