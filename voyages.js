@@ -117,7 +117,7 @@ const VOYAGES = [
         titre:         "Les premiers pas",
         lieux_du_jour: "Oxford · Bibury",
         quote:         "",
-        legende:       "Bibury nous a accueillis comme une promesse tenue — Arlington Row, le ruisseau Coln, la lumière de mai sur les pierres dorées. On a posé les valises et on n'a plus eu envie de bouger.",
+        legende:       "Paris le matin, Londres en milieu de journée, et Bibury en fin d'après-midi — le trajet fait partie du voyage. Arlington Row nous a accueillis comme une promesse tenue : les maisons en pierre du 14e siècle le long du Coln, les jardinières qui débordent, la lumière de mai qui change tout selon l'heure. On a pris le temps de regarder les détails — le grain de la pierre, les lichens sur les murs, les reflets dans le ruisseau. On est restés jusqu'à la fermeture du soleil. On ne s'attendait pas à être aussi vite conquis.",
         photos: [
           { photo: "photos/cotswolds-2026/j1-01.jpg",  tag: "Trajet",  titre: "L'Eurostar, puis les Cotswolds apparaissent", texte: "Paris le matin, Londres en milieu de journée, et les Cotswolds en fin d'après-midi. Le trajet fait partie du voyage — les paysages changent imperceptiblement depuis la fenêtre du train, jusqu'à ce que les pierres dorées remplacent le béton." },
           { photo: "photos/cotswolds-2026/j1-02.jpg",  tag: "Bibury",  titre: "Premiers pas dans le village qui ressemble à une aquarelle", texte: "Bibury pour poser les valises — et déjà, la surprise. Arlington Row, ses maisons en pierre du 14e siècle le long du ruisseau Coln, la lumière de fin de journée. On ne s'attendait pas à être aussi vite conquis." },
