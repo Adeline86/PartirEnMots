@@ -64,10 +64,11 @@
   .story-body { max-width: 960px; margin: 0 auto; padding: 0 2rem; }
   .day-block { padding: 5rem 0; }
   .day-block + .day-block { border-top: 0.5px solid rgba(201,169,122,0.2); }
-  .day-header { margin-bottom: 2.5rem; }
+  .day-header { margin-bottom: 0; }
   .day-number { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--terre); margin-bottom: 0.4rem; }
   .day-title { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 300; line-height: 1.1; margin-bottom: 0.5rem; }
-  .day-lieux { font-size: 0.8rem; color: var(--encre-soft); letter-spacing: 0.04em; }
+  .day-lieux { font-size: 0.8rem; color: var(--encre-soft); letter-spacing: 0.04em; margin-bottom: 1.5rem; }
+  .day-legend { font-size: 0.88rem; color: var(--encre-soft); line-height: 1.75; font-style: italic; margin-bottom: 1.5rem; }
 
   /* ── GALERIE ── */
   .gallery-grid {
@@ -114,9 +115,9 @@
   /* Légende de journée */
   .day-legend {
     margin-top: 1.25rem;
+    margin-bottom: 1.25rem;
     font-size: 0.88rem; color: var(--encre-soft);
     line-height: 1.75; font-style: italic;
-    max-width: 680px;
   }
 
   /* Citation */
@@ -341,8 +342,8 @@ if (!voyage) {
           <h2 class="day-title">${j.titre}</h2>
           <p class="day-lieux">${j.lieux_du_jour}</p>
         </div>
-        ${quoteHTML}
         ${legendeHTML}
+        ${quoteHTML}
         <div class="gallery-grid">${items}</div>
       </div>`;
   }).join("");
